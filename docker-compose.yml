@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  postgres-db:
+    image: postgres
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_PASSWORD=123
+      - PGDATA=/var/lib/postgresql/pgdata/
+      - POSTGRES_DB=djangodb_marinecv
+    volumes:
+      - pgdata:/var/lib/postgresql/pgdata/
+    ports:
+      - 5432:5432
+  web:
+    build: .
+    image: djangodb_marinecv
+    links:
+      - postgres-db:db
+    volumes:
+      - .:/src
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.docker
+    ports:
+      - 8000:8000
+volumes:
+  pgdata: {}
