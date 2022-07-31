@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block page_header %}
+    <div class="jumbotron">
+        <h1 class="display-4">Send Your CV to lots of companies by just a few steps!</h1>
+
+        <h4>
+            <p class="lead"><p>Hey there!</p>This app was dezigned for seamen by a seaman to make it easier to apply for a new job in a new company instead of searching for offers through the Enternet. Just press button below to make a few steps, whitch will lead You to sucess!</p>
+        </h4>
+        <a class="btn btn-secondary" href="{% url 'apps.authentication:register' %}" role="button">Start &raquo;</a>
+    </div>
+{% endblock page_header %}
