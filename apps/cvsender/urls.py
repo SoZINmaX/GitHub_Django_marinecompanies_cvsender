@@ -1,11 +1,9 @@
 from django.urls import path
+from . import views
+from .views import Tableview
 
-from .views import LoginView, LogoutView, RegisterView
-
-app_name = 'apps.authentication'
+app_name = 'apps.cvsender'
 
 urlpatterns = [
-    path('login/', LoginView.as_view(), name='user_login'),
-    path('logout/', LogoutView.as_view(), name='user_logout'),
-    path('register/', RegisterView.as_view(), name='user_register'),
+    path('company_list/', Tableview.as_view(), name='company_list'),
 ]

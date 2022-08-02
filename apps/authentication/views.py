@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.views import View
 from django.views.generic import FormView, CreateView
 from .forms import LoginForm, UserForm
-from django.contrib import messages
+
 
 User = get_user_model()
 

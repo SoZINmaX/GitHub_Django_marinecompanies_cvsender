@@ -1,59 +1,29 @@
-from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.contrib.auth import get_user_model
 
-class UserManager(BaseUserManager):
-    """
-    Custom user model manager where email is the unique identifiers
-    for authentication instead of usernames.
-    """
-    def create_user(self, email, password, **extra_fields):
-        """
-        Create and save a User with the given email and password.
-        """
-        if not email:
-            raise ValueError('The Email must be set')
-        email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
-        user.set_password(password)
-        user.save()
-        return user
+User = get_user_model
 
-    def create_superuser(self, email, password, **extra_fields):
-        """
-        Create and save a SuperUser with the given email and password.
-        """
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
-        extra_fields.setdefault('is_active', True)
-
-        if extra_fields.get('is_staff') is not True:
-            raise ValueError('Superuser must have is_staff=True.')
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError('Superuser must have is_superuser=True.')
-        return self.create_user(email, password, **extra_fields)
+class Company(models.Model):
     
+    name = models.CharField("name", max_length=200)
+    link = models.URLField("link", max_length=200, null=True)
+    email = models.EmailField("email", max_length = 200, null=True)
+    cadet = models.BooleanField("cadet", default=False)
+    container = models.BooleanField("container", default=False)
+    bulk = models.BooleanField("bulk", default=False)
+    tanker = models.BooleanField("tanker", default=False)
+    chemical_tanker = models.BooleanField("chemical_tanker", default=False)
+    product_tanker = models.BooleanField("product_tanker", default=False)
+    gas_carrier = models.BooleanField("gas_carrier", default=False)
+    lng = models.BooleanField("lng", default=False)
+    lpg = models.BooleanField("lpg", default=False)
+    reefer = models.BooleanField("reefer", default=False)
+    ro_ro = models.BooleanField("ro_ro", default=False)
+    heavy_lift = models.BooleanField("heavy_lift", default=False)
+    passenger = models.BooleanField("passenger", default=False)
+    off_shore = models.BooleanField("off_shore", default=False)
+    ferry = models.BooleanField("ferry", default=False)
+    tug = models.BooleanField("tug", default=False)
     
-class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField("email address", blank=True, unique=True)
-    is_staff = models.BooleanField(
-        "staff status",
-        default=False,
-        help_text="Designates whether the user can log into this admin site.",
-    )
-    is_active = models.BooleanField(
-        "active",
-        default=True,
-        help_text="Unselect this instead of deleting accounts.",
-    )
-    date_joined = models.DateTimeField("date joined", auto_now_add=True, null=True)
-
-    EMAIL_FIELD = "email"
-    USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
-
-    objects = UserManager()
-    
-    def clean(self):
-        super().clean()
-        self.email = self.__class__.objects.normalize_email(self.email)
+    def __str__(self):
+        return self.name

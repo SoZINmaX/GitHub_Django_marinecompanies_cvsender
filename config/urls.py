@@ -22,4 +22,5 @@ from django.urls import include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.authentication.urls')),
+    path('', include('apps.cvsender.urls')),
 ]

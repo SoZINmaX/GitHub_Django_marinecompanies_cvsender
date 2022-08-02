@@ -8,7 +8,7 @@
   </head>
   <body>
       <nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
-          <a class="navbar-brand" href="{% url 'apps.authentication:home' %}">Home</a>
+          <a class="navbar-brand" href="{% url 'apps.authentication:home' %}"><ul><h1>🚢</h1></ul></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
           </button>
@@ -16,17 +16,20 @@
               <ul class="navbar-nav ml-auto">
                   {% if user.is_authenticated %}
                       <li class="nav-item">
-                          <span class="navbar-text">Hello, {{ user }}.</span>
+                          <h5 class="navbar-text"><ul>🇺🇦{{ user }}🇺🇦</ul></h5>
                       </li>
                       <li class="nav-item">
-                          <a class="nav-link" href="{% url 'apps.authentication:logout' %}">Log out</a>
+                          <a class="nav-link" href="{% url 'apps.authentication:logout' %}"><h5><ul>Log out</ul></h5></a>
                       </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'apps.cvsender:company_list' %}"><h5><ul>List of companies</ul></h5></a>
+                    </li>
                   {% else %}
                       <li class="nav-item">
-                          <a class="nav-link" href="{% url 'apps.authentication:register' %}">Register</a>
+                          <a class="nav-link" href="{% url 'apps.authentication:register' %}"><h5><ul>Register</ul></h5></a>
                       </li>
                       <li class="nav-item">
-                          <a class="nav-link" href="{% url 'apps.authentication:login' %}">Log in</a>
+                          <a class="nav-link" href="{% url 'apps.authentication:login' %}"><h5><ul>Log in</ul></h5></a>
                       </li>
                   {% endif %}
               </ul>

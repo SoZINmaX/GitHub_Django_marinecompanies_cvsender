@@ -36,6 +36,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     #my apps
     'apps.authentication',
+    'apps.cvsender',
     #external apps
     #default apps
     'django.contrib.admin',
