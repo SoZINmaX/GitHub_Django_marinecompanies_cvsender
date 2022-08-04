@@ -1,7 +1,5 @@
 from django.db import models
-from django.contrib.auth import get_user_model
-
-User = get_user_model
+from apps.authentication.models import User
 
 class Company(models.Model):
     
@@ -27,3 +25,14 @@ class Company(models.Model):
     
     def __str__(self):
         return self.name
+    
+class UserSelectedCompany(models.Model):
+
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    selected_companies = models.ForeignKey(Company, on_delete=models.PROTECT)
+    send_from_email = models.EmailField("send_from_email", max_length = 200, null=True)
+    cv = models.CharField("cv", max_length=255, null=True)
+    text = models.CharField("text", max_length=255, null=True)
+    
+    def __str__(self):
+        return self.user

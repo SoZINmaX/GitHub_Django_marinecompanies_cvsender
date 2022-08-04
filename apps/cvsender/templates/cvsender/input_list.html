@@ -1,11 +1,17 @@
 {% extends "base.html" %}
 
 {% block page_header %}
-    <h1>Companies</h1>
+    <h1>Enter remaining data</h1>
 {% endblock page_header %}
 
 {% block content %}
     
 {{ contex }}
+
+<form action="{% url 'apps.cvsender:input_list' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-secondary">Send CV</button>
+</form>
                            
 {% endblock content %}

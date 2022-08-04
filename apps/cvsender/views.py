@@ -1,8 +1,11 @@
 from .models import Company
-from django.views.generic import TemplateView, FormView
+from django.views.generic import TemplateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
+from .forms import UserSelectedCompanyForm
+from django.contrib.auth import get_user_model
 
+
+User = get_user_model()
 
 
 class Tableview(LoginRequiredMixin,TemplateView):
@@ -11,16 +14,16 @@ class Tableview(LoginRequiredMixin,TemplateView):
 
       def get_context_data(self, **kwargs):
             contex = super(Tableview, self).get_context_data(**kwargs)
-            contex['header'] = ['✔️', 'Name', 'Link', 'E-mail', 'Cadet_programm', 'Container', 'Bulk', 'Tanker', 'Chemical_tanker', 'Product_tanker', 'Gas_carrier', 'Lng', 'Lpg', 'Reefer', 'Ro-Ro', 'Heavy_lift', 'Passenger', 'Offshore', 'Ferry', 'Tug']
-            contex['rows'] = Company.objects.all().values('name', 'link', 'email', 'cadet', 'container', 'bulk', 'tanker', 'chemical_tanker', 'product_tanker', 'gas_carrier', 'lng', 'lpg', 'reefer', 'ro_ro', 'heavy_lift', 'passenger', 'off_shore', 'ferry', 'tug').order_by('name')
+            contex['header'] = ['✔️', 'Name', 'Link', 'E-mail', 'Cadet_programm', 'Container', 'Bulk', 'Tanker', 'Chemical_tanker', 'Product_tanker', 'Gas_carrier', 'Lng', 'Lpg', 'Reefer', 'Ro-Ro', 'Heavy_lift', 'Passenger', 'Offshore', 'Ferry', 'Tug', 'ID']
+            contex['rows'] = Company.objects.all().values('name', 'link', 'email', 'cadet', 'container', 'bulk', 'tanker', 'chemical_tanker', 'product_tanker', 'gas_carrier', 'lng', 'lpg', 'reefer', 'ro_ro', 'heavy_lift', 'passenger', 'off_shore', 'ferry', 'tug', 'id').order_by('name')
             return contex
-      
-      
-class InputView(FormView):
-      
+
+
+class RegisterEntry(CreateView):
+      form_class = UserSelectedCompanyForm
       template_name = 'cvsender/input_list.html' 
-        
-      def post(self, request):
-            contex=request.POST.getlist('checks')
-            return render(request, 'cvsender/input_list.html', context={'contex':contex})
-      
+
+      def get_form_kwargs(self):
+           kwargs = super().get_form_kwargs()
+           kwargs['company_list'] = self.request.GET.getlist('checks')
+           return kwargs
