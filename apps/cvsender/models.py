@@ -29,7 +29,7 @@ class Company(models.Model):
 class UserSelectedCompany(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.PROTECT)
-    selected_companies = models.ForeignKey(Company, on_delete=models.PROTECT)
+    selected_companies = models.ManyToManyField('cvsender.Company', related_name='selected_companies')
     send_from_email = models.EmailField("send_from_email", max_length = 200, null=True)
     cv = models.CharField("cv", max_length=255, null=True)
     text = models.CharField("text", max_length=255, null=True)

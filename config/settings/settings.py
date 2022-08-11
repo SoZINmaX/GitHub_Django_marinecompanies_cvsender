@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'apps.authentication',
     'apps.cvsender',
     #external apps
+    'multiselectfield',
     #default apps
     'django.contrib.admin',
     'django.contrib.auth',

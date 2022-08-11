@@ -22,8 +22,11 @@ class Tableview(LoginRequiredMixin,TemplateView):
 class RegisterEntry(CreateView):
       form_class = UserSelectedCompanyForm
       template_name = 'cvsender/input_list.html' 
-
+      success_url = '/'
+      
       def get_form_kwargs(self):
-           kwargs = super().get_form_kwargs()
-           kwargs['company_list'] = self.request.GET.getlist('checks')
-           return kwargs
+            kwargs = super().get_form_kwargs()
+            kwargs['company_list'] =self.request.GET.getlist('checks')
+            kwargs['user_selected'] = self.request.user.email
+            return kwargs
+      
