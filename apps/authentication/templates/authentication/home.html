@@ -2,15 +2,34 @@
 
 {% block page_header %}
     <div class="jumbotron">
+    {% if user.is_authenticated %}
         <h1 class="display-4">Send Your CV to lots of companies by just a few steps!</h1>
-
-        <h4>
-            <p class="lead"><p>Hey there!</p>This app was dezigned for seamen by a seaman to make it easier to apply for a new job in a new company instead of searching for offers through the Enternet. Just press button below to make a few steps, whitch will lead You to sucess!</p>
-        </h4>
-        {% if user.is_authenticated %}
-            <a class="btn btn-secondary" href="{% url 'apps.cvsender:company_list' %}" role="button">Start &raquo;</a>
+            <h4>
+                <p class="lead"><p>Hey there!</p>This app was dezigned for seamen by a seaman to make it easier to apply for a new job in a new company instead of searching for offers through the Enternet. Just press button below to make a few steps, whitch will lead You to sucess!</p>
+            </h4>
+    {% else %}
+        {% if messages %}
+            <h1 class="display-4">
+                {% for message in messages %}
+                <p>{{ message }}</p>
+                <p><h4>Pls press button below to log in now.</h4></p>
+                {% endfor %}
+            </h1>
+        {% else %}
+            <h1 class="display-4">Send Your CV to lots of companies by just a few steps!</h1>
+            <h4>
+                <p class="lead"><p>Hey there!</p>This app was dezigned for seamen by a seaman to make it easier to apply for a new job in a new company instead of searching for offers through the Enternet. Just press button below to make a few steps, whitch will lead You to sucess!</p>
+            </h4>
+        {% endif %} 
+    {% endif %}   
+    {% if user.is_authenticated %}
+        <a class="btn btn-secondary" href="{% url 'apps.cvsender:company_list' %}" role="button">Start &raquo;</a>
+    {% else %}
+        {% if messages %}
+            <a class="btn btn-secondary" href="{% url 'apps.authentication:login' %}" role="button">Start &raquo;</a> 
         {% else %}
             <a class="btn btn-secondary" href="{% url 'apps.authentication:register' %}" role="button">Start &raquo;</a>
         {% endif %}
+    {% endif %}
     </div>
 {% endblock page_header %}

@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.views import View
 from django.views.generic import FormView, CreateView
 from .forms import LoginForm, UserForm
+from django.contrib import messages
 
 
 User = get_user_model()
@@ -28,11 +29,11 @@ class RegisterView(CreateView):
     template_name = 'authentication/register.html'
 
     def form_valid(self, form):
-        user = form.save(commit=False)
-        user.set_password(user.password)
-        user.save()
-        login(self.request, user)
-        return super().form_valid(form)
+        result = super().form_valid(form)
+        messages.add_message(self.request,
+                             messages.SUCCESS,
+                             'User successfully registered.')
+        return result
     
 
 class LogoutView(View):

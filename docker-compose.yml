@@ -1,5 +1,14 @@
 version: "3.9"
+
 services:
+
+  rabbitmq:
+    image: rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=password
+      - RABBITMQ_DEFAULT_VHOST=celery_tasks
+
   postgres-db:
     image: postgres
     env_file:
@@ -12,16 +21,42 @@ services:
       - pgdata:/var/lib/postgresql/pgdata/
     ports:
       - 5432:5432
+
   web:
     build: .
     image: djangodb_marinecv
     links:
       - postgres-db:db
+      - rabbitmq:rabbitmq
+    volumes:
+      - .:/src
+      - ./static:/static 
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.docker
+    command: "/bin/bash -c 'pip install -r requirements.txt; invoke run'"
+
+  celery:
+    build: .
+    image: djangodb_marinecv
+    links:
+      - postgres-db:db
+      - rabbitmq:rabbitmq
     volumes:
       - .:/src
     environment:
       - DJANGO_SETTINGS_MODULE=config.settings.docker
+    command: "celery -A config.celery.app worker"
+
+  nginx:
+    image: nginx
+    links:
+      - web
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./static:/static:ro
     ports:
-      - 8000:8000
+      - 8000:80
+      
 volumes:
   pgdata: {}
+  static: {}

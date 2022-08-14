@@ -137,3 +137,18 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'authentication.User'
+
+DEFAULT_FROM_EMAIL = 'from@mysite.com'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+#EMAIL_HOST = 'smtp.gmail.com'
+#EMAIL_PORT = '578'
+#EMAIL_HOST_USER = '275924@gmail.com'
+#EMAIL_HOST_PASSWORD = '123'
+#EMAIL_USE_TLS = True
+
+
+# CELERY STUFF
+BROKER_URL = 'redis://localhost:6379'

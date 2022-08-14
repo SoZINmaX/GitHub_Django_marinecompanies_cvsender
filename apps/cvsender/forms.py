@@ -1,6 +1,6 @@
 from cProfile import label
 from django import forms
-from .models import UserSelectedCompany, Company, User
+from .models import UserSelectedCompany, Company
 from django.contrib.auth import get_user_model
 from django.forms import ModelChoiceField
 from multiselectfield import MultiSelectFormField
