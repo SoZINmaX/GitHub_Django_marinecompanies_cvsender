@@ -4,8 +4,8 @@ from invoke import task
 
 @task
 def run(ctx):
-    # print('Migrating db')
-    # ctx.run('./manage.py migrate')
+    print('Migrating db')
+    ctx.run('./manage.py migrate')
     print('Collecting static')
     ctx.run('./manage.py collectstatic --noinput')
 

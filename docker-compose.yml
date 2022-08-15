@@ -4,19 +4,13 @@ services:
 
   rabbitmq:
     image: rabbitmq
-    environment:
-      - RABBITMQ_DEFAULT_USER=user
-      - RABBITMQ_DEFAULT_PASS=password
-      - RABBITMQ_DEFAULT_VHOST=celery_tasks
+    env_file:
+      - envs/rabbitmq.env
 
   postgres-db:
     image: postgres
     env_file:
-      - .env
-    environment:
-      - POSTGRES_PASSWORD=123
-      - PGDATA=/var/lib/postgresql/pgdata/
-      - POSTGRES_DB=djangodb_marinecv
+      - envs/db.env
     volumes:
       - pgdata:/var/lib/postgresql/pgdata/
     ports:
@@ -30,9 +24,11 @@ services:
       - rabbitmq:rabbitmq
     volumes:
       - .:/src
-      - ./static:/static 
-    environment:
-      - DJANGO_SETTINGS_MODULE=config.settings.docker
+      - static:/static 
+    env_file:
+      - envs/db.env
+      - envs/rabbitmq.env
+      - envs/.env
     command: "/bin/bash -c 'pip install -r requirements.txt; invoke run'"
 
   celery:
@@ -43,8 +39,11 @@ services:
       - rabbitmq:rabbitmq
     volumes:
       - .:/src
-    environment:
-      - DJANGO_SETTINGS_MODULE=config.settings.docker
+      - static:/static 
+    env_file:
+      - envs/db.env
+      - envs/rabbitmq.env
+      - envs/.env
     command: "celery -A config.celery.app worker"
 
   nginx:
@@ -53,7 +52,7 @@ services:
       - web
     volumes:
       - ./config/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./static:/static:ro
+      - static:/static:ro
     ports:
       - 8000:80
       

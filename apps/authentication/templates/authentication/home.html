@@ -26,9 +26,9 @@
         <a class="btn btn-secondary" href="{% url 'apps.cvsender:company_list' %}" role="button">Start &raquo;</a>
     {% else %}
         {% if messages %}
-            <a class="btn btn-secondary" href="{% url 'apps.authentication:login' %}" role="button">Start &raquo;</a> 
+            <a class="btn btn-secondary" href="{% url 'apps.authentication:login' %}" role="button">Login &raquo;</a> 
         {% else %}
-            <a class="btn btn-secondary" href="{% url 'apps.authentication:register' %}" role="button">Start &raquo;</a>
+            <a class="btn btn-secondary" href="{% url 'apps.authentication:register' %}" role="button">Register &raquo;</a>
         {% endif %}
     {% endif %}
     </div>
