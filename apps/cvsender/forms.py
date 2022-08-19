@@ -13,7 +13,7 @@ class UserSelectedCompanyForm(forms.ModelForm):
     class Meta:
         model = UserSelectedCompany
         fields = ['user', 'selected_companies', 'send_from_email', 'cv', 'text']
-        widgets = {'text': forms.Textarea(attrs={'colls': 50})}
+        widgets = {'text': forms.Textarea(attrs={'colls': 50}),  'cv': forms.FileInput()}
         labels = {'text': 'Pls write the content of Your e-mail here', 'cv': 'Pls upload Your CV here in PDF format'}
         
     def __init__(self, *args, company_list=None, user_selected=None, **kwargs):

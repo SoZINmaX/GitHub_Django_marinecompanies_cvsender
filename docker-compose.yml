@@ -25,6 +25,7 @@ services:
     volumes:
       - .:/src
       - static:/static 
+      - media:/media
     env_file:
       - envs/db.env
       - envs/rabbitmq.env
@@ -40,6 +41,7 @@ services:
     volumes:
       - .:/src
       - static:/static 
+      - media:/media
     env_file:
       - envs/db.env
       - envs/rabbitmq.env
@@ -53,9 +55,11 @@ services:
     volumes:
       - ./config/nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - static:/static:ro
+      - media:/media:ro
     ports:
       - 8000:80
       
 volumes:
   pgdata: {}
   static: {}
+  media: {}

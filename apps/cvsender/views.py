@@ -29,4 +29,7 @@ class RegisterEntry(CreateView):
             kwargs['company_list'] =self.request.GET.getlist('checks')
             kwargs['user_selected'] = self.request.user.email
             return kwargs
-      
+      def form_valid(self, form):
+        """If the form is valid, save the associated model."""
+        self.object = form.save()
+        return super().form_valid(form)

@@ -28,10 +28,14 @@ class Company(models.Model):
         
 class UserSelectedCompany(models.Model):
 
+    def user_directory_path(instance, filename):
+        # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+        return 'user_{0}/{1}'.format(instance.user.id, filename)
+    
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     selected_companies = models.ManyToManyField('cvsender.Company', related_name='selected_companies')
     send_from_email = models.EmailField("send_from_email", max_length = 200, null=True)
-    cv = models.CharField("cv", max_length=255, null=True)
+    cv = models.FileField("cv", upload_to=user_directory_path, null = True)
     text = models.CharField("text", max_length=255, null=True)
     
     def __str__(self):
