@@ -3,25 +3,25 @@ from apps.authentication.models import User
 
 class Company(models.Model):
     
-    name = models.CharField("name", max_length=200)
-    link = models.URLField("link", max_length=200, null=True)
+    name = models.CharField("name", max_length=200, null=True)
+    adress = models.CharField("adress", max_length=200, null=True)
+    website_info = models.URLField("website_info", max_length=200, null=True)
     email = models.EmailField("email", max_length = 200, null=True)
-    cadet = models.BooleanField("cadet", default=False)
+    phone_number = models.CharField("phone_number", max_length=200, null=True)
+    cadet_program = models.BooleanField("cadet_program", default=False)
     container = models.BooleanField("container", default=False)
     bulk = models.BooleanField("bulk", default=False)
     tanker = models.BooleanField("tanker", default=False)
-    chemical_tanker = models.BooleanField("chemical_tanker", default=False)
-    product_tanker = models.BooleanField("product_tanker", default=False)
     gas_carrier = models.BooleanField("gas_carrier", default=False)
-    lng = models.BooleanField("lng", default=False)
-    lpg = models.BooleanField("lpg", default=False)
     reefer = models.BooleanField("reefer", default=False)
     ro_ro = models.BooleanField("ro_ro", default=False)
     heavy_lift = models.BooleanField("heavy_lift", default=False)
     passenger = models.BooleanField("passenger", default=False)
     off_shore = models.BooleanField("off_shore", default=False)
-    ferry = models.BooleanField("ferry", default=False)
+    yachts = models.BooleanField("yachts", default=False)
+    fishing = models.BooleanField("fishing", default=False)
     tug = models.BooleanField("tug", default=False)
+    ferry = models.BooleanField("ferry", default=False)
     
     def __str__(self):
         return self.name
