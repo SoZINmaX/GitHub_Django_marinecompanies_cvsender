@@ -5,6 +5,31 @@
 {% endblock page_header %}
 
 {% block content %}
+<form role="form" action="{% url 'apps.cvsender:company_list' %}" method="get">{% csrf_token %}
+    <ul>
+        <select class="form-select" name="dropdown" aria-label="Default select example">
+            <option selected>Selct filter</option>
+            <option value="name">name</option>
+            <option value="cadet_program">cadet_program</option>
+            <option value="container">container</option>
+            <option value="bulk">bulk</option>
+            <option value="tanker">tanker</option>
+            <option value="gas_carrier">gas_carrier</option>
+            <option value="reefer">reefer</option>
+            <option value="ro_ro">ro_ro</option>
+            <option value="heavy_lift">heavy_lift</option>
+            <option value="passenger">passenger</option>
+            <option value="off_shore">off_shore</option>
+            <option value="yachts">yachts</option>
+            <option value="fisching">fisching</option>
+            <option value="tug">tug</option>
+            <option value="ferry">ferry</option>
+        </select>
+        <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-secondary">Apply filter</button>
+        </div>
+    </ul>   
+</form>
 <form role="form" action="{% url 'apps.cvsender:input_list' %}" method="get">{% csrf_token %}
     <ul>
         <div class="table-responsive">
@@ -49,7 +74,9 @@
                 </tbody>
             </table>
         </div>
-        <button type="submit" class="btn btn-secondary">Next</button>
+        <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-secondary">Next</button>
+        </div>
     </ul>
 </form>
 {% endblock content %}

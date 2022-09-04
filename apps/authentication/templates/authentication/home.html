@@ -23,12 +23,18 @@
         {% endif %} 
     {% endif %}   
     {% if user.is_authenticated %}
-        <a class="btn btn-secondary" href="{% url 'apps.cvsender:company_list' %}" role="button">Start &raquo;</a>
+        <div class="d-grid gap-2">
+            <a class="btn btn-secondary" href="{% url 'apps.cvsender:company_list' %}" role="button">Start &raquo;</a>
+        </div>
     {% else %}
         {% if messages %}
+        <div class="d-grid gap-2">
             <a class="btn btn-secondary" href="{% url 'apps.authentication:login' %}" role="button">Login &raquo;</a> 
+        </div>
         {% else %}
-            <a class="btn btn-secondary" href="{% url 'apps.authentication:register' %}" role="button">Register &raquo;</a>
+            <div class="d-grid gap-2">
+                <a class="btn btn-secondary" href="{% url 'apps.authentication:register' %}" role="button">Register &raquo;</a>
+            </div>       
         {% endif %}
     {% endif %}
     </div>

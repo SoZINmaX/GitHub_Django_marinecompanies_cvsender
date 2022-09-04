@@ -11,13 +11,24 @@ User = get_user_model()
 class Tableview(LoginRequiredMixin,TemplateView):
       
       template_name = 'cvsender/company_list.html'
-
+      
       def get_context_data(self, **kwargs):
-            contex = super(Tableview, self).get_context_data(**kwargs)
-            contex['header'] = ['✔️', 'Name', 'Adress', 'Website info', 'Email', 'Phone number', 'Cadet program', 'Container', 'Bulk', 'Tanker', 'Gas carrier', 'Reefer', 'Ro-Ro', 'Heavy_lift', 'Passenger', 'Offshore', 'Yachts', 'Fishing', 'Tug', 'Ferry', 'ID']
-            contex['rows'] = Company.objects.all().values('name', 'adress', 'website_info', 'email', 'phone_number', 'cadet_program', 'container', 'bulk', 'tanker', 'gas_carrier', 'reefer', 'ro_ro', 'heavy_lift', 'passenger', 'off_shore', 'yachts', 'fishing', 'tug', 'ferry', 'id').order_by('name')
-            return contex
 
+            try:
+                  if self.request.GET.getlist('dropdown'):
+                        name = self.request.GET.getlist('dropdown')
+                  else:
+                        name = name=['name']
+            finally: 
+                  if name[0] == 'name':
+                        contex = super(Tableview, self).get_context_data(**kwargs)
+                        contex['header'] = ['✔️', 'Name', 'Adress', 'Website info', 'Email', 'Phone number', 'Cadet program', 'Container', 'Bulk', 'Tanker', 'Gas carrier', 'Reefer', 'Ro-Ro', 'Heavy_lift', 'Passenger', 'Offshore', 'Yachts', 'Fishing', 'Tug', 'Ferry', 'ID']
+                        contex['rows'] = Company.objects.all().values('name', 'adress', 'website_info', 'email', 'phone_number', 'cadet_program', 'container', 'bulk', 'tanker', 'gas_carrier', 'reefer', 'ro_ro', 'heavy_lift', 'passenger', 'off_shore', 'yachts', 'fishing', 'tug', 'ferry', 'id').order_by(name[0])
+                  else:
+                        contex = super(Tableview, self).get_context_data(**kwargs)
+                        contex['header'] = ['✔️', 'Name', 'Adress', 'Website info', 'Email', 'Phone number', 'Cadet program', 'Container', 'Bulk', 'Tanker', 'Gas carrier', 'Reefer', 'Ro-Ro', 'Heavy_lift', 'Passenger', 'Offshore', 'Yachts', 'Fishing', 'Tug', 'Ferry', 'ID']
+                        contex['rows'] = Company.objects.all().values('name', 'adress', 'website_info', 'email', 'phone_number', 'cadet_program', 'container', 'bulk', 'tanker', 'gas_carrier', 'reefer', 'ro_ro', 'heavy_lift', 'passenger', 'off_shore', 'yachts', 'fishing', 'tug', 'ferry', 'id').order_by(name[0]).reverse()                    
+            return contex
 
 class RegisterEntry(CreateView):
       form_class = UserSelectedCompanyForm
