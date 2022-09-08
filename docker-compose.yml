@@ -5,12 +5,12 @@ services:
   rabbitmq:
     image: rabbitmq
     env_file:
-      - envs/rabbitmq.env
+      - rabbitmq.env
 
   postgres-db:
     image: postgres
     env_file:
-      - envs/db.env
+      - db.env
     volumes:
       - pgdata:/var/lib/postgresql/pgdata/
     ports:
@@ -27,9 +27,9 @@ services:
       - static:/static 
       - media:/media
     env_file:
-      - envs/db.env
-      - envs/rabbitmq.env
-      - envs/.env
+      - db.env
+      - rabbitmq.env
+      - .env
     command: "/bin/bash -c 'pip install -r requirements.txt; invoke run'"
 
   celery:
@@ -43,9 +43,9 @@ services:
       - static:/static 
       - media:/media
     env_file:
-      - envs/db.env
-      - envs/rabbitmq.env
-      - envs/.env
+      - db.env
+      - rabbitmq.env
+      - .env
     command: "celery -A config.celery.app worker"
 
   nginx:

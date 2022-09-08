@@ -1,4 +1,5 @@
 import os
+from decouple import config
 """
 Django settings for mysite project.
 
@@ -125,8 +126,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'authentication.User'
 
-DEFAULT_FROM_EMAIL = 'from@mysite.com'
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # CELERY STUFF
-BROKER_URL = 'redis://localhost:6379'
+BROKER_URL = config('BROKER_URL')

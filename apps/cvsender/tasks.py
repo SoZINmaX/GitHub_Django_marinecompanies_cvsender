@@ -9,12 +9,12 @@ User = get_user_model()
         
 @shared_task   
 def send_email(companies, text, send_from_email, cv): 
-    for company in companies:
-        companies_selected = company.get('email')
-        subject = "CV"   
-        from_email = settings.DEFAULT_FROM_EMAIL
-        to = companies_selected
-        text_content  = str(text)+str(send_from_email)
-        msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-        msg.attach_file(cv)
-        msg.send()
+    # for company in companies:
+    # companies_selected = company.get('email')
+    subject = "CV"   
+    from_email = settings.DEFAULT_FROM_EMAIL
+    to = settings.DEFAULT_FROM_EMAIL
+    text_content  = str(text)+str(send_from_email)
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    msg.attach_file(cv)
+    msg.send()
