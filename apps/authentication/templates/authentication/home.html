@@ -3,10 +3,17 @@
 {% block page_header %}
     <div class="jumbotron">
     {% if user.is_authenticated %}
-        <h1 class="display-4">Send Your CV to lots of companies by just a few steps!</h1>
-            <h4>
-                <p class="lead"><p>Hey there!</p>This app was dezigned for seamen by a seaman to make it easier to apply for a new job in a new company instead of searching for offers through the Enternet. Just press button below to make a few steps, whitch will lead You to sucess!</p>
-            </h4>
+        {% if messages %}
+            <h1 class="display-4">
+                {% for message in messages %}
+                <p>{{ message }}</p>
+                {% endfor %}
+        {% else %}
+            <h1 class="display-4">Send Your CV to lots of companies by just a few steps!</h1>
+                <h4>
+                    <p class="lead"><p>Hey there!</p>This app was dezigned for seamen by a seaman to make it easier to apply for a new job in a new company instead of searching for offers through the Enternet. Just press button below to make a few steps, whitch will lead You to sucess!</p>
+                </h4>
+        {% endif %} 
     {% else %}
         {% if messages %}
             <h1 class="display-4">
@@ -23,9 +30,15 @@
         {% endif %} 
     {% endif %}   
     {% if user.is_authenticated %}
-        <div class="d-grid gap-2">
-            <a class="btn btn-secondary" href="{% url 'apps.cvsender:company_list' %}" role="button">Start &raquo;</a>
-        </div>
+        {% if messages %}
+            <div class="d-grid gap-2">
+                <a class="btn btn-secondary" href="{% url 'apps.cvsender:company_list' %}" role="button">Select again &raquo;</a>
+            </div>
+        {% else %}
+            <div class="d-grid gap-2">
+                <a class="btn btn-secondary" href="{% url 'apps.cvsender:company_list' %}" role="button">Start &raquo;</a>
+            </div>
+        {% endif %}
     {% else %}
         {% if messages %}
         <div class="d-grid gap-2">

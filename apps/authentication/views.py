@@ -35,11 +35,11 @@ class RegisterView(CreateView):
                              'User successfully registered.')
         return result
     
-
+    
 class LogoutView(View):
      def get(self, request):
          logout(request)
          return HttpResponseRedirect(reverse('apps.authentication:login'))
-     
+         
 def home(request):
     return render(request, 'authentication/home.html')
