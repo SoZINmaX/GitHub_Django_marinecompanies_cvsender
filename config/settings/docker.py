@@ -1,16 +1,22 @@
 from .settings import *
-import os
 from decouple import config
 
 # DATABASE STUFF
+
+NAME=config('NAME')
+USER=config('USER')
+PASSWORD=config('PASSWORD')
+HOST=config('HOST')
+PORT=config('PORT')
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv('POSTGRES_DB', 'djangodb_marinecv'),
-        'USER': os.getenv('POSTGRES_USER', 'postgres'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD', '123'),
-        'HOST': os.getenv('POSTGRES_HOST', 'db'),
-        'PORT': os.getenv('POSTGRES_PORT', '5432'),
+        'NAME': NAME,
+        'USER': USER,
+        'PASSWORD': PASSWORD,
+        'HOST': HOST,
+        'PORT': PORT,
         'ATOMIC_REQUESTS': True
     }
 }
