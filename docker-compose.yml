@@ -53,7 +53,7 @@ services:
   nginx:
     image: nginx
     links:
-      - web
+      - web:web
     volumes:
       - ./config/nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - static:/static:ro

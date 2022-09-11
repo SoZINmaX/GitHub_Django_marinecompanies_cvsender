@@ -3,11 +3,11 @@ from decouple import config
 
 # DATABASE STUFF
 
-NAME=config('NAME')
-USER=config('USER')
-PASSWORD=config('PASSWORD')
-HOST=config('HOST')
-PORT=config('PORT')
+NAME=config('POSTGRES_DB')
+USER=config('POSTGRES_USER')
+PASSWORD=config('POSTGRES_PASSWORD')
+HOST=config('POSTGRES_HOST')
+PORT=config('POSTGRES_PORT')
 
 DATABASES = {
     'default': {
@@ -23,7 +23,7 @@ DATABASES = {
 
 # CELERY STUFF
 CELERY_BROKER_URL = config('CELERY_BROKER_URL')
-
+# CELERY_BROKER_URL = config('CELERY_BROKER_URL')
 # VOLUMES
 MEDIA_URL = '/media/'
 MEDIA_ROOT = '/media/'
