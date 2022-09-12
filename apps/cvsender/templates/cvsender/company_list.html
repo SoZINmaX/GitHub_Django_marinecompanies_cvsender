@@ -8,7 +8,7 @@
 {% block content %}
 <form role="form" action="{% url 'apps.cvsender:company_list' %}" method="get" class="select_form">{% csrf_token %}
         <select class="form-select" name="dropdown" aria-label="Default select example">
-            <option selected>Selct filter</option>
+            <option selected>Sort by</option>
             <option value="name">name</option>
             <option value="cadet_program">cadet_program</option>
             <option value="container">container</option>
@@ -29,7 +29,7 @@
             <button type="submit" class="btn btn-secondary">Apply filter</button>
         </div>
 </form>
-<form role="form" action="{% url 'apps.cvsender:input_list' %}" method="get">{% csrf_token %}
+<form role="form" action="{% url 'apps.cvsender:input_list' %}" method="get" class="companies_table">{% csrf_token %}
         <div class="table-responsive">
             <table class="table table-striped table-bordered">
                 <thead class="thread-dark">

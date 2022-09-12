@@ -59,7 +59,7 @@ services:
       - static:/static:ro
       - media:/media:ro
     ports:
-      - 8000:80
+      - "80:80"
       
 volumes:
   pgdata: {}

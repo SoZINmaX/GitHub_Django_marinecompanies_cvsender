@@ -11,7 +11,7 @@ User = get_user_model()
 def send_email(companies, text, send_from_email, cv): 
     companies_selected = ''
     for company in companies:
-        companies_selected += str(company.get('email'))
+        companies_selected += str(company.get('email')) + '  '
     subject = "CV"   
     from_email = settings.DEFAULT_FROM_EMAIL
     to = settings.DEFAULT_FROM_EMAIL
